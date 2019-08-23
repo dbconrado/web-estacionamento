@@ -49,7 +49,7 @@ hsentrada varchar(10) not null,
 hssaida varchar(10) not null,
 primary key (cod),
 foreign key (patio_num) references patio (num) on delete cascade,
-foreign key (veiculo_placa) references Veiculo (placa) on delete cascade
+foreign key (veiculo_placa) references veiculo (placa) on delete cascade
 
 );
 
@@ -62,10 +62,8 @@ insert into Cliente values (303030, 'Livia Porto Seguro', '2002/01/30');
 insert into Cliente values (404040, 'Nathalia Terere', '2000/07/19');
 
 
-select * from cliente;
-
-insert into modelo values ( 1, 'Sedan');
-insert into modelo values ( 2, 'Van');
+insert into Modelo values ( 1, 'Sedan');
+insert into Modelo values ( 2, 'Van');
 
 insert into veiculo values ('gta 1234', 1, 333009, 'branco');
 insert into veiculo values ('isa 4321', 2, 228877, 'rosa');
