@@ -37,6 +37,7 @@
 		<main>
 			<h2>Clientes</h2>
 
+			<p><a href="cadcliente.php">Novo Cliente</a></p>
 			<table class="tabela-dados">
 					<thead>
 						<tr>
