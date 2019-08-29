@@ -7,18 +7,17 @@
 
 	$clientes = $resultado->fetchAll();
 
-	/*[
-		[
-			'cpf'=>'04080660608',
-			'nome'=>'Livão',
-			'dtNasc'=>'28/11/00'
-		],
-		[
-			'cpf'=>'15107352604',
-			'nome'=>'Livinha',
-			'dtNasc'=>'14/01/02'
-		]
-	];*/
+	// verifico se tem mensagem pra ser exibida ao usuário.
+	$mensagem = "";
+	if (isset($_COOKIE['mensagem']))
+	{
+		$mensagem = $_COOKIE['mensagem'];
+
+		// depois que exibo a mensagem, devo retirá-la
+		// dos cookies.
+		setcookie('mensagem', '', 1);
+	}
+
  ?>
  <!DOCTYPE html>
  <html lang="en">
@@ -36,6 +35,12 @@
 	<div id="container">
 		<main>
 			<h2>Clientes</h2>
+
+			<?php if(!empty($mensagem)): ?>
+				<div id="mensagem">
+					<?= $mensagem; ?>
+				</div>
+			<?php endif; ?>
 
 			<p><a href="cadcliente.php">Novo Cliente</a></p>
 			<table class="tabela-dados">

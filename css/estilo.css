@@ -65,3 +65,11 @@ footer {
 .tabela-dados thead {
 	background-color: #119ea8;
 }
+
+#mensagem {
+	width: fit-content;
+	background-color: #f0b943;
+	border: 1px solid #f0b943;
+	border-radius: 5px;
+	padding: 1em;
+}

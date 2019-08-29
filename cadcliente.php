@@ -3,23 +3,50 @@
 var_dump($_POST);
 
 if (count($_POST) > 0) {
+	// um formulário foi enviado.
 	// inserir no banco de dados
 
 	$banco = "estacionamento";
 	$usuario = "estacionamento";
 	$senha = "joselia";
 
+	// me conecto ao banco de dados usando o PDO
 	$conexao = new PDO("mysql:host=localhost;dbname=${banco}", $usuario, $senha);
 
+	// monto o meu comando SQL em uma string
+	// Os pontos de interrogação definem lugares
+	// no comando que devem ser preenchidos
+	// com dados
 	$sql = "INSERT INTO Cliente VALUES (?, ?, ?)";
 
+	// uso "prepare" para criar o comando a partir da minha string
 	$comando = $conexao->prepare($sql);
 
-	$comando->execute([
+	// uso "execute" para executar o comando SQL.
+	// Passo os dados esperados pelo comando em um vetor (array)
+	// Os dados passados seguem a ordem dos pontos de interrogação acima
+	// Se o comando funcionar, "execute" retornará TRUE
+	// Caso contrário, "execute" retornará FALSE
+	$sucesso = $comando->execute([
 		$_POST['cpf'],
 		$_POST['nome'],
 		$_POST['data-nascimento']
 	]);
+
+	// se o comando for bem sucedido, monto uma mensagem amigável
+	$mensagem = '';
+	if ($sucesso)
+	{
+		$mensagem = "Cliente cadastrado!";
+	}
+	else
+	{
+		// se deu erro, a mensagem não será tão amigável :(
+		$mensagem = "Erro: " . $comando->errorInfo()[2];
+	}
+
+	// uso um cookie para passar a mensagem para a página de clientes
+	setcookie('mensagem', $mensagem);
 
 	// redireciona para a página clientes.php
 	header('Location: clientes.php');
