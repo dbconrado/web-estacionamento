@@ -7,6 +7,17 @@
 
 	$modelos = $resultado->fetchAll();
 
+	// verifico se tem mensagem pra ser exibida ao usuário.
+	$mensagem = "";
+	if (isset($_COOKIE['mensagem']))
+	{
+		$mensagem = $_COOKIE['mensagem'];
+
+		// depois que exibo a mensagem, devo retirá-la
+		// dos cookies.
+		setcookie('mensagem', '', 1);
+	}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +35,13 @@
 		<main>
 			<h2>Modelos</h2>
 
-			<button>+ Novo Modelo</button>
+			<?php if(!empty($mensagem)): ?>
+				<div id="mensagem">
+					<?= $mensagem; ?>
+				</div>
+			<?php endif; ?>
+
+			<p><a href="cadmodelo.php">Novo Modelo</a></p>
 
 			<?php if (count($modelos) > 0): ?>
 			<table class="tabela-dados">
