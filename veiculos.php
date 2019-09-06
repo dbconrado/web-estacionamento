@@ -2,7 +2,17 @@
 
 	$conexao = new PDO("mysql:host=localhost;dbname=estacionamento", "estacionamento", "joselia");
 
-	$sql = "SELECT * FROM veiculo";
+	/*$sql = "SELECT * FROM veiculo";*/
+	/*$sql = "SELECT placa, desc_2, cliente_cpf, cor FROM veiculo, Modelo WHERE modelo_codmod = codmod";*/
+
+	$sql = <<<EOL
+	SELECT placa, desc_2, Nome, cor
+	  FROM veiculo, Modelo, Cliente
+	WHERE modelo_codmod = codmod
+	  AND cliente_cpf = cpf
+EOL;
+
+
 	$resultado = $conexao->query($sql);
 
 	$veiculos = $resultado->fetchAll();
@@ -72,9 +82,9 @@
 						<?php foreach ($veiculos as $veiculo): ?>
 						<tr>
 							<td><?= $veiculo['placa'] ?></td>
-							<td><?= $veiculo['modelo_codmod'] ?></td>
+							<td><?= $veiculo['desc_2'] ?></td>
 							<td><?= $veiculo['cor'] ?></td>
-							<td><?= $veiculo['cliente_cpf'] ?></td>
+							<td><?= $veiculo['Nome'] ?></td>
 						</tr>
 						<?php endforeach; ?>
 					</tbody>
